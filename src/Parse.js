@@ -1,5 +1,46 @@
 import React from "react";
 import { useState } from "react";
+import styled, { css } from 'styled-components'
+
+const Table = styled.table`
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 14px;
+  border-radius: 10px;
+  border-spacing: 0;
+  text-align: center;
+`
+const Th = styled.th`
+  background: #BCEBDD;
+  color: white;
+  text-shadow: 0 1px 1px #2D2020;
+  padding: 10px 20px;
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  border-color: white;
+    &:first-child{
+      text-align: left;
+      border-top-left-radius: 10px;
+    }
+    &:last-child {
+      border-top-right-radius: 10px;
+      border-right: none;
+      }
+`
+const Td = styled.td`
+  padding: 10px 20px;
+  background: #F8E391;
+`
+const Tr = styled.tr`
+  &:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+  }
+  &:last-child td:last-child {
+    border-radius: 0 0 10px 0;
+  }
+  td:last-child {
+    border-right: none;
+  }
+`
 
 
 const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTjcwOmp3Wq2YqbMc2mI44uDnUhdun8weGiEdQlQi9EvuUnrQKloLTMoXJFeLwDuc6RYAgHq4RlzoDs/pub?output=tsv';
@@ -27,32 +68,32 @@ const Parse = () => {
   
 
   return(
-    <table>
+    <Table>
       <thead>
-        <tr>
+        <Tr>
         {namesArray.map((name, id) => {
           return (
-            <th key={name + id}>{name}</th>
+            <Th key={name + id}>{name}</Th>
           )
         })}
-        </tr>
+        </Tr>
       </thead>
       <tbody>
         {logsArray.map(log => {
               return (
-                <tr key={log.id}>
-                    <td>{log.id}</td>
-                    <td>{log.date}</td>
-                    <td>{log.user}</td>
-                    <td>{log.train_type}</td>
-                    <td>{log.duration}</td>
-                    <td>{log.kcal}</td>
-                    <td>{log.pulse}</td>
-                </tr>
+                <Tr key={log.id}>
+                    <Td>{log.id}</Td>
+                    <Td>{log.date}</Td>
+                    <Td>{log.user}</Td>
+                    <Td>{log.train_type}</Td>
+                    <Td>{log.duration}</Td>
+                    <Td>{log.kcal}</Td>
+                    <Td>{log.pulse}</Td>
+                </Tr>
               )
         })}
       </tbody>
-    </table>
+    </Table>
   
   )
 }
