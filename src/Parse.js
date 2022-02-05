@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled, { css } from 'styled-components'
 import HeadTable from "./HeadTable";
 import BodyTable from "./BodyTable";
@@ -19,8 +19,7 @@ const Parse = () => {
   const [logsArray, setLogsArray] = useState([])
   const [namesArray, setNamesArray] = useState([])
 
-
-  if(logsArray.length == 0){
+  function parseMethod(){
     fetch(url).then(r => r.text()).then((text)=> {
       const arr = text.toString().split('\r\n').map(str => str.split('\t'));
       const names = arr.shift();
@@ -32,6 +31,8 @@ const Parse = () => {
       setNamesArray(names)
     });
   }
+
+  useEffect (() => { parseMethod()},[])
   
   return(
     <Table>

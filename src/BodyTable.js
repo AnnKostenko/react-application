@@ -18,6 +18,12 @@ const Td = styled.td`
 `
 
 function BodyTable ({logsArray}){
+  // var map = new Map(Object.entries(logsArray));
+  // console.log(Object.values(logsArray))
+  
+  // for (const [key, value] of Object.entries(logsArray)) {
+  //   console.log(`${key}: ${value}`);
+  // }
     return(
         <tbody>
         {logsArray.map(log => {
@@ -34,7 +40,9 @@ function BodyTable ({logsArray}){
               )
         })}
       </tbody>
+      
     )
+   
 }
 
 export default BodyTable
