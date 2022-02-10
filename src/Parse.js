@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styled, { css } from 'styled-components'
 import HeadTable from "./HeadTable";
 import BodyTable from "./BodyTable";
+import ModalWindow from "./ModalWindow";
 
 const Table = styled.table`
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -10,6 +11,8 @@ const Table = styled.table`
   border-radius: 10px;
   border-spacing: 0;
   text-align: center;
+  width: 100%;
+  max-width: 50%;
 `
 
 const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTjcwOmp3Wq2YqbMc2mI44uDnUhdun8weGiEdQlQi9EvuUnrQKloLTMoXJFeLwDuc6RYAgHq4RlzoDs/pub?output=tsv';
@@ -35,11 +38,13 @@ const Parse = () => {
   useEffect (() => { parseMethod()},[])
   
   return(
-    <Table>
-      <HeadTable namesArray= {namesArray}/>
-      <BodyTable logsArray= {logsArray}/>
-    </Table>
-  
+    <>
+     <ModalWindow logsArray= {logsArray}/>
+      <Table>
+        <HeadTable namesArray= {namesArray}/>
+        <BodyTable logsArray= {logsArray}/>
+      </Table>
+    </>
   )
 }
 

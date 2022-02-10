@@ -40,7 +40,6 @@ function BodyTable ({logsArray}){
               )
         })}
       </tbody>
-      
     )
    
 }
