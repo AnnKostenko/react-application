@@ -22,25 +22,30 @@ const Parse = () => {
   const [logsArray, setLogsArray] = useState([])
   const [namesArray, setNamesArray] = useState([])
 
-  function parseMethod(){
+  function loadData(){
     fetch(url).then(r => r.text()).then((text)=> {
-      const arr = text.toString().split('\r\n').map(str => str.split('\t'));
-      const names = arr.shift();
-      const logs = arr.map(log => log.reduce((acc, el, i) => {
-        acc[names[i]] = el;
-        return acc;
-      }, {}));
+      const {logs, names} = parseMethod(text)
       setLogsArray(logs)
       setNamesArray(names)
     });
   }
 
-  useEffect (() => { parseMethod()},[])
+  function parseMethod(text){
+    const arr = text.toString().split('\r\n').map(str => str.split('\t'));
+    const names = arr.shift();
+    const logs = arr.map(log => log.reduce((acc, el, i) => {
+      acc[names[i]] = el;
+      return acc;
+    }, {}));
+    return {logs, names}
+  }
+
+  useEffect (() => { loadData()},[])
   
   return(
     <>
      <ModalWindow logsArray= {logsArray}/>
-      <Table>
+      <Table className="table_sort">
         <HeadTable namesArray= {namesArray}/>
         <BodyTable logsArray= {logsArray}/>
       </Table>

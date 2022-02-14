@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const Tr = styled.tr`
   &:last-child td:first-child {
@@ -18,30 +18,17 @@ const Td = styled.td`
 `
 
 function BodyTable ({logsArray}){
-  // var map = new Map(Object.entries(logsArray));
-  // console.log(Object.values(logsArray))
-  
-  // for (const [key, value] of Object.entries(logsArray)) {
-  //   console.log(`${key}: ${value}`);
-  // }
     return(
         <tbody>
         {logsArray.map(log => {
               return (
                 <Tr key={log.id}>
-                    <Td>{log.id}</Td>
-                    <Td>{log.date}</Td>
-                    <Td>{log.user}</Td>
-                    <Td>{log.train_type}</Td>
-                    <Td>{log.duration}</Td>
-                    <Td>{log.kcal}</Td>
-                    <Td>{log.pulse}</Td>
+                  {Object.entries(log).map(([key, value]) =>  <Td key={key}>{value}</Td>)}
                 </Tr>
               )
         })}
       </tbody>
     )
-   
 }
 
 export default BodyTable

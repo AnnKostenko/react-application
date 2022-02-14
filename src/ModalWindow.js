@@ -65,9 +65,9 @@ const Input = styled.input`
   
 `
 
-const ModalWindow = (logsArray) => {
+const ModalWindow = () => {
 
-    const [logsItem, setLogsItem] = useState(logsArray);
+    const [logsItem, setLogsItem] = useState({});
 
     const openNew = () => {
         document.querySelector('.modal').classList.toggle("open");
