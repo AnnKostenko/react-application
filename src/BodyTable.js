@@ -17,10 +17,10 @@ const Td = styled.td`
   background: #F8E391;
 `
 
-function BodyTable ({logsArray}){
+function BodyTable ({searchUser}){
     return(
         <tbody>
-        {logsArray.map(log => {
+        {searchUser.map(log => {
               return (
                 <Tr key={log.id}>
                   {Object.entries(log).map(([key, value]) =>  <Td key={key}>{value}</Td>)}

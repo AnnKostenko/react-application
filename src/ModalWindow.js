@@ -1,7 +1,7 @@
 import React from "react";
 import "./ModalWindow.css";
 import { useState } from "react";
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const Dialog = styled.dialog`
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
