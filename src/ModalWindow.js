@@ -1,6 +1,6 @@
 import React from "react";
 import "./ModalWindow.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from 'styled-components'
 
 const Dialog = styled.dialog`
@@ -46,7 +46,10 @@ const Button = styled.button`
     border: 2px solid #F8E391;
     color: #F8E391;
     padding: 0.25em 1em;
-    
+    &:disabled{
+        border-color: #c8c8c8;
+        color: #c8c8c8;
+    }
 `
 const H1 = styled.h1`
     margin: 0 0 .5rem 0;
@@ -77,6 +80,7 @@ const ModalWindow = () => {
         document.querySelectorAll('input').forEach((element) => {
             element.value = "";
           })
+        document.querySelector('.button-save').removeAttribute("disabled");
     }
     const onInputChange = (e, name) => { 
         const val = (e.target && e.target.value) || ''; 
@@ -84,12 +88,19 @@ const ModalWindow = () => {
          _logsItem[`${name}`] = val;
          setLogsItem(_logsItem); 
     }
+
+    useEffect(
+        () => {
+            document.querySelector('.button-save').removeAttribute("disabled");
+        },
+        [logsItem],
+      );
    
     const saveUser = () => {
         const BASE_URL = 'https://script.google.com/macros/s/AKfycbyiw5VtjqT-l4o7YMHfJMjjCOMN2u0cefgM73CqyuGZer2hBQOng6pOdnUI4wASFWe11w/exec?'
         const url = `${BASE_URL}user=${ logsItem.user }&train_type=${ logsItem.train_type }&duration=${ logsItem.duration }&kcal=${ logsItem.kcal }&pulse=${ logsItem.pulse }`
         fetch(url);
-        // window.location.reload(); 
+        document.querySelector('.button-save').setAttribute("disabled", "disabled");
     }
 
     return(
@@ -124,7 +135,7 @@ const ModalWindow = () => {
                 </Label>   
            </DialogBody>
            <DialogFooter>
-                <Button type="button" onClick={saveUser}>Подтвердить</Button>
+                <Button type="button" className="button-save" onClick={saveUser}>Подтвердить</Button>
                 <Button type="button" onClick={hideNew}>Отмена</Button>
            </DialogFooter>
         </Dialog>

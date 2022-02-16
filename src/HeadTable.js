@@ -30,15 +30,24 @@ const Th = styled.th`
       }
 `
 
-function HeadTable ({namesArray}){
+function HeadTable ({sortData, namesArray}){
     return(
         <thead>
+          {/* <Tr>
+            {namesArray.map((name, id) => {
+              return (
+                <Th key={name + id}>{name}</Th>
+              )
+            })}
+          </Tr> */}
         <Tr>
-        {namesArray.map((name, id) => {
-          return (
-            <Th key={name + id}>{name}</Th>
-          )
-        })}
+            <Th>{namesArray[0]}</Th>  
+            <Th>{namesArray[1]}</Th>  
+            <Th>{namesArray[2]}</Th>  
+            <Th>{namesArray[3]}</Th>  
+            <Th onClick={()=>{sortData('duration')}}>{namesArray[4]}</Th>  
+            <Th onClick={()=>{sortData('kcal')}}>{namesArray[5]}</Th>  
+            <Th onClick={()=>{sortData('pulse')}}>{namesArray[6]}</Th>  
         </Tr>
       </thead>
     )

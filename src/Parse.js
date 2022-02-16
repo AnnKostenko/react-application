@@ -37,6 +37,8 @@ const Parse = () => {
   const [logsArray, setLogsArray] = useState([])
   const [namesArray, setNamesArray] = useState([])
   const [search, setSearch] = useState("");
+  const [directionSort, setDirectionSort] = useState(true); // значение true или false (для определения направления сортировки)
+
 
   function loadData(){
     fetch(url).then(r => r.text()).then((text)=> {
@@ -66,6 +68,27 @@ const Parse = () => {
 
   useEffect (() => { loadData()},[])
 
+  const sortData = (field) =>{
+    console.log(field) // выводим входной параметр (передается при клике)
+
+    const copyData = logsArray.concat();  // создаем копию массива в котором у нас данные таблицы 
+
+    let sortData; // переменная для того чтобы записывать уже отсортированые данные
+    if (directionSort){
+      sortData = copyData.sort(
+        (a, b)=> { return a[field] > b[field] ? 1 : -1} //сортировка по убыванию [10 - 0]
+      )
+    }
+    sortData = copyData.reverse(
+      (a, b)=> { return a[field] > b[field] ? 1 : -1} //сортировка по возрастанию [0 -10]
+    )
+   
+
+    setLogsArray(sortData) // выводим в таблицу уже отсортированые данные
+    setDirectionSort(!directionSort) // чтобы при нажатии на "Заголовок", чередовался порядок сортировки (esc/desc)
+
+  }
+
   return(
     <>
      <ModalWindow/>
@@ -80,7 +103,7 @@ const Parse = () => {
         />
       </SearchBlock>
       <Table>
-        <HeadTable namesArray= {namesArray}/>
+        <HeadTable namesArray= {namesArray} sortData={sortData}/>
         <BodyTable searchUser= {searchUser}/>
       </Table>
     </>
